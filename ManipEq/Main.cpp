@@ -7,8 +7,9 @@ using namespace std;
 
 void main() {
 	double xb, y0, za, xc, yb, tc, zd, O1A, OA1, l1, l2, l3, OO1;
-	double  fi, l4, A, gamma0, xm0, ym0, zm0, xe0, ye0, ze0, tmp_1, tmp_2, tmp_3;
-	int alpha_0, alpha_23, a, alpha_13, alpha_33, b;
+	double  fi, l4, A, gamma1, gamma0, gamma, xm0, ym0, zm0, xe0, ye0, ze0, psi1, psi2, alpha;
+	double xmk, ymk, zmk;
+	int alpha_0, alpha_23, a, alpha_13, alpha_33, b, xek, yek, zek;
 	//Исходные конструктивные данные
 	xb = 355.0;
 	y0 = 755.0;
@@ -52,6 +53,31 @@ void main() {
 	cout << "xe0: " << xe0 << endl;
 	cout << "ye0: " << ye0 << endl;
 	cout << "ze0: " << ze0 << endl;
+	
+	//Конечные координаты захвата Е
+	gamma = gamma0;
+	xek = 300;
+	yek = 1500;
+	zek = -100;
+	
+	//Определяем углы psi1, gamma
+	psi1 = asin(-alpha_23*sin(gamma) + alpha_13*cos(gamma));
+	psi2 = asin(-alpha_23*sin(gamma) - alpha_13*cos(gamma));
+	alpha = asin(alpha_33 / cos(psi1));
+	gamma1 = atan((double)(-xek) / (double)yek);
 
+	cout << "psi1: " << psi1 << endl;
+	cout << "psi2: " << psi2 << endl;
+	cout << "alpha: " << alpha << endl;
+	cout << "gamma1: " << gamma1 << endl;
+
+	xmk = xek - b*alpha_13 + a*cos(alpha)*sin(gamma1);
+	ymk = yek - b*alpha_23 - a*cos(alpha)*cos(gamma1);
+	zmk = zek - b*alpha_33 - a*sin(alpha);
+
+	cout << "xmk: " << xmk << endl;
+	cout << "ymk: " << ymk << endl;
+	cout << "zmk: " << zmk << endl;
+	
 	_getch();
 }
