@@ -8,8 +8,8 @@ using namespace std;
 void main() {
 	double xb, y0, za, xc, yb, tc, zd, O1A, OA1, l1, l2, l3, OO1;
 	double  fi, l4, A, gamma1, gamma0, gamma, xm0, ym0, zm0, xe0, ye0, ze0, psi1, psi2, alpha;
-	double xmk, ymk, zmk;
-	int alpha_0, alpha_23, a, alpha_13, alpha_33, b, xek, yek, zek;
+	double xmk, ymk, zmk, xek, yek, zek;
+	int alpha_0, alpha_23, a, alpha_13, alpha_33, b;
 	//Исходные конструктивные данные
 	xb = 355.0;
 	y0 = 755.0;
@@ -64,7 +64,7 @@ void main() {
 	psi1 = asin(-alpha_23*sin(gamma) + alpha_13*cos(gamma));
 	psi2 = asin(-alpha_23*sin(gamma) - alpha_13*cos(gamma));
 	alpha = asin(alpha_33 / cos(psi1));
-	gamma1 = atan((double)(-xek) / (double)yek);
+	gamma1 = atan((-xek) / yek);
 
 	cout << "psi1: " << psi1 << endl;
 	cout << "psi2: " << psi2 << endl;
@@ -79,5 +79,17 @@ void main() {
 	cout << "ymk: " << ymk << endl;
 	cout << "zmk: " << zmk << endl;
 	
+	//Оптимизация угла фи
+	double OK, OA, OB, DK, Imin;
+	OK = y0;
+	OA = za;
+	OB = xb;
+	DK = zd;
+	OA1 = za;
+	
+	Imin = pow((sqrt((xmk*xmk + (ymk + OA1*sin(fi))*(ymk + OA1*sin(fi)) + ((zmk - OA1*cos(fi))*(zmk - OA1*cos(fi))))) - l1), 2.0) + pow((sqrt((OK - OA1*sin(fi))*(OK - OA1*sin(fi)) + (OA1*cos(fi) - DK)*(OA1*cos(fi) - DK)) - l4), 2.0);
+
+	cout << "Imin(fi): " << Imin << endl;
+
 	_getch();
 }
